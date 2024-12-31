@@ -4,6 +4,7 @@
 #include "d3dx12.h"
 #include "CommandQueue.h"
 #include "CommandListManager.h"
+#include "CommandContext.h"
 
 const int MSAA_SAMPLE = 1;
 
@@ -18,19 +19,46 @@ RenderWindow& RenderWindow::Get()
 
 void RenderWindow::Initialize()
 {
-	D3D12RHI& RHI = D3D12RHI::Get();
 	WindowWin32& Window = WindowWin32::Get();
-	m_swapChain.Reset();
-	m_swapChain = CreateSwapChain(Window.GetWindowHandle(), RHI.GetDXGIFactory(), g_CommandListManager.GetGraphicsQueue().GetD3D12CommandQueue(), Window.GetWidth(), Window.GetHeight(), BUFFER_COUNT);
-	
+	m_bInit = true;
+	OnResetSize(Window.GetWidth(), Window.GetHeight(), false);
 	m_frameIndex = m_swapChain->GetCurrentBackBufferIndex();
+}
 
-	for (int i = 0; i < BUFFER_COUNT; ++i)
+void RenderWindow::OnResetSize(int InWidth, int InHeight,bool m4xMsaaState)
+{
+	if(!m_bInit)
+		return;
+	FCommandQueue& GraphicQueue = g_CommandListManager.GetGraphicsQueue();
+	GraphicQueue.Flush();
+
+	for(int i = 0; i < BUFFER_COUNT; ++i)
+	{
+		m_BackBuffers[i].Destroy();
+	}
+
+	if(m_swapChain)
+	{
+		m_swapChain->ResizeBuffers(
+			BUFFER_COUNT,
+			InWidth,
+			InHeight,
+			DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+	}
+	else
+	{
+		WindowWin32& Window = WindowWin32::Get();
+		D3D12RHI& RHI = D3D12RHI::Get();
+		m_swapChain = CreateSwapChain(Window.GetWindowHandle(), RHI.GetDXGIFactory(), GraphicQueue.GetD3D12CommandQueue(), InWidth, InHeight, BUFFER_COUNT, m4xMsaaState);
+	}
+
+	for(int i = 0; i < BUFFER_COUNT; ++i)
 	{
 		ComPtr<ID3D12Resource> BackBuffer;
 		ThrowIfFailed(m_swapChain->GetBuffer(i, IID_PPV_ARGS(&BackBuffer)));
 		m_BackBuffers[i].CreateFromSwapChain(L"BackBuffer", BackBuffer.Detach());
 	}
+	Present();
 }
 
 void RenderWindow::Destroy()
@@ -38,7 +66,7 @@ void RenderWindow::Destroy()
 
 }
 
-ComPtr<IDXGISwapChain3> RenderWindow::CreateSwapChain(HWND hwnd, IDXGIFactory4* factory, ID3D12CommandQueue* commandQueue, int width, int height, int bufferCount)
+ComPtr<IDXGISwapChain3> RenderWindow::CreateSwapChain(HWND hwnd, IDXGIFactory4* factory, ID3D12CommandQueue* commandQueue, int width, int height, int bufferCount,bool m4xMsaaState)
 {
 	DXGI_SWAP_CHAIN_DESC1 Desc = {};
 	Desc.Width = width;
@@ -46,6 +74,8 @@ ComPtr<IDXGISwapChain3> RenderWindow::CreateSwapChain(HWND hwnd, IDXGIFactory4* 
 	Desc.BufferCount = bufferCount;
 	Desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	Desc.SampleDesc.Count = 1;
+	Desc.SampleDesc.Count = m4xMsaaState ? 4 : 1;
+	Desc.SampleDesc.Quality = m4xMsaaState ? -1 : 0;
 	Desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	Desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	ComPtr<IDXGISwapChain1> swapchain1;

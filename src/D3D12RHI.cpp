@@ -174,7 +174,9 @@ bool D3D12RHI::Initialize()
 	// 4. create render window(swapchain)
 	RenderWindow::Get().Initialize();
 
-	BufferManager::InitializeRenderingBuffers(WindowWin32::Get().GetWidth(), WindowWin32::Get().GetHeight());
+	int width = WindowWin32::Get().GetWidth();
+	int Height = WindowWin32::Get().GetHeight();
+	BufferManager::InitializeRenderingBuffers(width, Height);
 	FGenerateMips::Initialize();
 	MotionBlur::Initialize();
 	TemporalEffects::Initialize();

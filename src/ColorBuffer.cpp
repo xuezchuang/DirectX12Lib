@@ -13,7 +13,8 @@ void FColorBuffer::CreateFromSwapChain(const std::wstring& Name, ID3D12Resource*
 	ID3D12Device* Device = D3D12RHI::Get().GetD3D12Device().Get();
 	AssociateWithResource(Device, Name, BaseResource, D3D12_RESOURCE_STATE_PRESENT);
 
-	m_RTVHandle = D3D12RHI::Get().AllocateDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+	if(m_RTVHandle.ptr == NULL)
+		m_RTVHandle = D3D12RHI::Get().AllocateDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 	Device->CreateRenderTargetView(m_Resource.Get(), nullptr, m_RTVHandle);
 }
 

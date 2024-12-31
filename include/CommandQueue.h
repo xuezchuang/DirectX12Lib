@@ -52,6 +52,6 @@ private:
 	std::queue< CommandAllocatorEntry>		m_ReadyAllocators;
 	std::vector<ID3D12CommandAllocator*>	m_AllocatorPool;
 
-	CommandListQueue			m_CommandListQueue;
+	//CommandListQueue			m_CommandListQueue;
 };
 

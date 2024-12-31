@@ -16,7 +16,8 @@ private:
 public:
 	static RenderWindow& Get();
 	void Initialize();
-	
+	void OnResetSize(int InWidth, int InHeight,bool m4xMsaaState);
+
 	void Destroy();
 
 	// swap chain & present
@@ -29,7 +30,7 @@ public:
 	const DXGI_FORMAT& GetDepthFormat() const;
 
 private:
-	ComPtr<IDXGISwapChain3> CreateSwapChain(HWND hwnd, IDXGIFactory4* factory, ID3D12CommandQueue* commandQueue, int width, int height, int bufferCount);
+	ComPtr<IDXGISwapChain3> CreateSwapChain(HWND hwnd, IDXGIFactory4* factory, ID3D12CommandQueue* commandQueue, int width, int height, int bufferCount, bool m4xMsaaState);
 
 private:
 	//ComPtr<ID3D12Device> m_d3d12Device;
@@ -39,5 +40,6 @@ private:
 
 	ComPtr<IDXGISwapChain3> m_swapChain;
 	FColorBuffer m_BackBuffers[BUFFER_COUNT];
+	bool m_bInit = false;
 };
 

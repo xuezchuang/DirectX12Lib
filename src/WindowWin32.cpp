@@ -8,6 +8,7 @@
 #include "Game.h"
 #include "GameInput.h"
 #include "ImguiManager.h"
+#include "RenderWindow.h"
 
 
 std::map<int, int> g_MouseMapping = {
@@ -162,6 +163,16 @@ LRESULT WindowWin32::WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 	case WM_MOUSEWHEEL:
 	{
 		GameInput::MouseZoom(GET_WHEEL_DELTA_WPARAM(wParam));
+		break;
+	}
+
+	case WM_SIZE:
+	{
+		int nWidth = LOWORD(lParam);
+		int nHeight = HIWORD(lParam);
+		WindowWin32::Get().Width = nWidth;
+		WindowWin32::Get().Height = nHeight;
+		RenderWindow::Get().OnResetSize(nWidth, nHeight, false);
 		break;
 	}
 

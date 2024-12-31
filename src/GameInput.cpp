@@ -9,6 +9,8 @@ namespace
 	int s_MousePreX, s_MousePreY;
 	int s_MouseCurrentX, s_MouseCurrentY;
 
+	int s_SizeX, s_SizeY;
+
 	float s_MouseZoom;
 }
 
@@ -71,6 +73,18 @@ float GameInput::ConsumeMouseZoom()
 	float Result = s_MouseZoom;
 	s_MouseZoom = 0.f;
 	return Result;
+}
+
+void GameInput::SetSize(int width, int height)
+{
+	s_SizeX = width;
+	s_SizeY = height;
+}
+
+void GameInput::GetSize(int& width, int& height)
+{
+	width = s_SizeX;
+	height = height;
 }
 
 Vector2i GameInput::GetMoveDelta()

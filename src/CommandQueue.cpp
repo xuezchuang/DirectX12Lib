@@ -66,10 +66,11 @@ uint64_t FCommandQueue::ExecuteCommandList(ComPtr<ID3D12GraphicsCommandList> com
 	};
 
 	m_d3d12CommandQueue->ExecuteCommandLists(1, ppCommandLists);
+
 	uint64_t fenceValue = Signal();
 
 	//can be reused the next time the GetCommandList method is called.
-	m_CommandListQueue.push(commandList);
+	//m_CommandListQueue.push(commandList);
 
 	return fenceValue;
 }

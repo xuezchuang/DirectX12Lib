@@ -25,4 +25,7 @@ namespace GameInput
 
 	void MouseZoom(int ZoomValue);
 	float ConsumeMouseZoom();
+
+	void SetSize(int width,int height);
+	void GetSize(int& width,int& height);
 }
