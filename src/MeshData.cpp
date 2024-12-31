@@ -1,6 +1,5 @@
 ﻿#include "MeshData.h"
 #include "Common.h"
-
 #include <limits>
 
 
@@ -34,7 +33,7 @@ bool MeshData::HasVertexElement(VertexElementType type) const
 	case VET_Tangent:
 		return !m_tangents.empty();
 	default:
-		return nullptr;
+		return false;
 	}
 }
 
@@ -265,7 +264,7 @@ FTexture* MeshData::GetTextureByMeshIndex(uint32_t SubMeshIndex, int TexIndex)
 {
 	size_t MtlIndex = this->GetSubMaterialIndex(SubMeshIndex);
 	if (MtlIndex < m_materials.size())
-		return GetTexture(MtlIndex, TexIndex);
+		return GetTexture(int(MtlIndex), TexIndex);
 	else
 		return nullptr;
 }

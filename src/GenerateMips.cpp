@@ -3,6 +3,7 @@
 #include "D3D12RHI.h"
 #include "CubeBuffer.h"
 #include "CommandContext.h"
+#include "Common.h"
 
 FRootSignature FGenerateMips::m_GenMipSignature;
 FGraphicsPipelineState FGenerateMips::m_GenMipPSO;
@@ -39,8 +40,8 @@ void FGenerateMips::Initialize()
 	DXGI_FORMAT CubeFormat = DXGI_FORMAT_R16G16B16A16_FLOAT;
 	m_GenMipPSO.SetRenderTargetFormats(1, &CubeFormat, DXGI_FORMAT_UNKNOWN);
 
-	m_ScreenQuadVS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/PostProcess.hlsl", "VS_ScreenQuad", "vs_5_1");
-	m_GenerateMipPS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/GenerateMips.hlsl", "PS_Main_2D", "ps_5_1");
+	m_ScreenQuadVS = D3D12RHI::Get().CreateShader(getpath(L"\\Resources\\Shaders\\PostProcess.hlsl"), "VS_ScreenQuad", "vs_5_1");
+	m_GenerateMipPS = D3D12RHI::Get().CreateShader(getpath(L"/Resources/Shaders/GenerateMips.hlsl"), "PS_Main_2D", "ps_5_1");
 
 	m_GenMipPSO.SetVertexShader(CD3DX12_SHADER_BYTECODE(m_ScreenQuadVS.Get()));
 	m_GenMipPSO.SetPixelShader(CD3DX12_SHADER_BYTECODE(m_GenerateMipPS.Get()));
@@ -55,8 +56,8 @@ void FGenerateMips::Initialize()
 	m_GenMipPSOCube.SetPrimitiveTopologyType(D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE);
 	m_GenMipPSOCube.SetRenderTargetFormats(1, &CubeFormat, DXGI_FORMAT_UNKNOWN);
 
-	m_CubeVS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/GenerateMips.hlsl", "VS_Main_Cube", "vs_5_1");
-	m_CubePS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/GenerateMips.hlsl", "PS_Main_Cube", "ps_5_1");
+	m_CubeVS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/GenerateMips.hlsl"), "VS_Main_Cube", "vs_5_1");
+	m_CubePS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/GenerateMips.hlsl"), "PS_Main_Cube", "ps_5_1");
 
 	m_GenMipPSOCube.SetVertexShader(CD3DX12_SHADER_BYTECODE(m_CubeVS.Get()));
 	m_GenMipPSOCube.SetPixelShader(CD3DX12_SHADER_BYTECODE(m_CubePS.Get()));
@@ -92,7 +93,8 @@ void FGenerateMips::GeneratePerCubeFace(FCubeBuffer& CubeBuffer, FCommandContext
 			uint32_t DstSubIndex = CubeBuffer.GetSubresourceIndex(Face, MipLevel);
 			CommandContext.TransitionSubResource(CubeBuffer, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, SrcSubIndex, true);
 
-			CommandContext.SetRenderTargets(1, &CubeBuffer.GetRTV(Face, MipLevel));
+			D3D12_CPU_DESCRIPTOR_HANDLE RtvHandle = CubeBuffer.GetRTV(Face, MipLevel);
+			CommandContext.SetRenderTargets(1, &RtvHandle);
 			CommandContext.ClearColor(CubeBuffer, Face, MipLevel);
 
 			CommandContext.SetConstantArray(0, sizeof(g_PSConstants) / 4, &g_PSConstants);
@@ -136,7 +138,8 @@ void FGenerateMips::GenerateForCube(FCubeBuffer& CubeBuffer, FCommandContext& Co
 			CommandContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			CommandContext.SetViewportAndScissor(0, 0, DstSize, DstSize);
 
-			CommandContext.SetRenderTargets(1, &CubeBuffer.GetRTV(Face, MipLevel));
+			D3D12_CPU_DESCRIPTOR_HANDLE RtvHandle = CubeBuffer.GetRTV(Face, MipLevel);
+			CommandContext.SetRenderTargets(1, &RtvHandle);
 			CommandContext.ClearColor(CubeBuffer, Face, MipLevel);
 
 			CommandContext.SetConstantArray(0, sizeof(g_PSConstants) / 4, &g_PSConstants);

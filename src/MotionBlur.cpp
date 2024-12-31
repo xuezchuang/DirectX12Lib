@@ -39,7 +39,7 @@ void MotionBlur::Initialize(void)
 	s_RootSignature.Finalize(L"Motion Blur");
 
 	// Shader
-	s_CameraVelocityShader = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/CameraVelocityCS.hlsl", "cs_main", "cs_5_1");
+	s_CameraVelocityShader = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/CameraVelocityCS.hlsl"), "cs_main", "cs_5_1");
 
 	// PSO
 	s_CameraVelocityPSO.SetRootSignature(s_RootSignature);

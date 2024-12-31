@@ -27,3 +27,17 @@ void DoAssert(bool success, const wchar_t* file_name, int line)
 		__debugbreak();
 	}
 }
+
+std::wstring getpath(const std::wstring& str)
+{
+	wchar_t path[MAX_PATH];
+	GetModuleFileName(NULL, path, MAX_PATH);
+	std::wstring fullPath(path);
+	size_t pos = fullPath.find_last_of(L"\\/") + 1;
+	if(pos != std::string::npos)
+	{
+		fullPath = fullPath.substr(0, pos);
+	}
+	fullPath += str;
+	return fullPath;
+}

@@ -50,10 +50,10 @@ void ScreenSpaceSubsurface::Initialize()
 	g_SpecularTerm.Create(L"Subsurface SpecularTerm", bufferWidth, bufferHeight, 1, g_SceneColorBuffer.GetFormat());
 
 	// Shader and PSO
-	m_ScreenQuadVS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/PostProcess.hlsl", "VS_ScreenQuad", "vs_5_1");
-	m_SubsurfacePS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/ScreenSpaceSubsurfaceBlur.hlsl", "PS_SSSBlur", "ps_5_1");
-	m_SubsurfaceCombinePS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/ScreenSpaceSubsurfaceCombine.hlsl", "PS_SSSCombine", "ps_5_1");
-	m_TempBufferPS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/TempBufferCopy.hlsl", "PS_CopyBuffer", "ps_5_1");
+	m_ScreenQuadVS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/PostProcess.hlsl"), "VS_ScreenQuad", "vs_5_1");
+	m_SubsurfacePS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/ScreenSpaceSubsurfaceBlur.hlsl"), "PS_SSSBlur", "ps_5_1");
+	m_SubsurfaceCombinePS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/ScreenSpaceSubsurfaceCombine.hlsl"), "PS_SSSCombine", "ps_5_1");
+	m_TempBufferPS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/TempBufferCopy.hlsl"), "PS_CopyBuffer", "ps_5_1");
 
 	FSamplerDesc LinearSampler(D3D12_FILTER_MIN_MAG_MIP_LINEAR, D3D12_TEXTURE_ADDRESS_MODE_CLAMP);
 	FSamplerDesc PointSampler(D3D12_FILTER_MIN_MAG_MIP_POINT, D3D12_TEXTURE_ADDRESS_MODE_CLAMP);
@@ -129,8 +129,8 @@ void ScreenSpaceSubsurface::Render(FCommandContext& CommandContext,FCamera& Came
 	// blur
 	{
 		float fovy = Camera.GetFovY();
-		float height = g_DiffuseTerm.GetHeight();
-		float width = g_DiffuseTerm.GetWidth();
+		int height = g_DiffuseTerm.GetHeight();
+		int width = g_DiffuseTerm.GetWidth();
 		float Scale = 0.1f;
 
 		__declspec(align(16)) struct
@@ -206,7 +206,7 @@ void ScreenSpaceSubsurface::Render(FCommandContext& CommandContext,FCamera& Came
 			int			DebugFlag;
 		} Combine_Constants;
 
-		Combine_Constants.SubsurfaceColor = Vector3f(0.655000, 0.559480f, 0.382083f);
+		Combine_Constants.SubsurfaceColor = Vector3f(0.655000f, 0.559480f, 0.382083f);
 		Combine_Constants.EffectStr = g_sssStr;
 		Combine_Constants.DebugFlag = g_DebugFlag;
 

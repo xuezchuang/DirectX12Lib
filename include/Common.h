@@ -43,3 +43,5 @@ inline std::wstring ToWideString(const std::string& str)
 	::MultiByteToWideChar(CP_ACP, 0, str.data(), (int)str.length(), &wstr[0], stringLength);
 	return wstr;
 }
+
+std::wstring getpath(const std::wstring& str);

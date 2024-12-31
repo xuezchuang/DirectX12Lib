@@ -83,22 +83,22 @@ void PostProcessing::Initialize()
 	m_CSSignature.InitStaticSampler(1, PointSampler, D3D12_SHADER_VISIBILITY_ALL);
 	m_CSSignature.Finalize(L"PostProcessing-Bloom");
 
-	m_UpSampleCS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/PostProcess.hlsl", "CS_UpSample", "cs_5_1");
+	m_UpSampleCS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/PostProcess.hlsl"), "CS_UpSample", "cs_5_1");
 	m_CSUpSamplePSO.SetRootSignature(m_CSSignature);
 	m_CSUpSamplePSO.SetComputeShader(CD3DX12_SHADER_BYTECODE(m_UpSampleCS.Get()));
 	m_CSUpSamplePSO.Finalize();
 
-	m_DownSampleCS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/PostProcess.hlsl", "CS_DownSample", "cs_5_1");
+	m_DownSampleCS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/PostProcess.hlsl"), "CS_DownSample", "cs_5_1");
 	m_CSDownSamplePSO.SetRootSignature(m_CSSignature);
 	m_CSDownSamplePSO.SetComputeShader(CD3DX12_SHADER_BYTECODE(m_DownSampleCS.Get()));
 	m_CSDownSamplePSO.Finalize();
 
-	m_ExtractBloomCS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/PostProcess.hlsl", "CS_ExtractBloom", "cs_5_1");
+	m_ExtractBloomCS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/PostProcess.hlsl"), "CS_ExtractBloom", "cs_5_1");
 	m_CSExtractBloomPSO.SetRootSignature(m_CSSignature);
 	m_CSExtractBloomPSO.SetComputeShader(CD3DX12_SHADER_BYTECODE(m_ExtractBloomCS.Get()));
 	m_CSExtractBloomPSO.Finalize();
 
-	m_BuildHZBCS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/HZB.hlsl", "CS_BuildHZB", "cs_5_1");
+	m_BuildHZBCS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/HZB.hlsl"), "CS_BuildHZB", "cs_5_1");
 	m_CSBuildHZBPSO.SetRootSignature(m_CSSignature);
 	m_CSBuildHZBPSO.SetComputeShader(CD3DX12_SHADER_BYTECODE(m_BuildHZBCS.Get()));
 	m_CSBuildHZBPSO.Finalize();
@@ -123,8 +123,8 @@ void PostProcessing::Initialize()
 	m_PostProcessSignature.InitStaticSampler(1, PointSampler, D3D12_SHADER_VISIBILITY_PIXEL);
 	m_PostProcessSignature.Finalize(L"PostProcess");
 
-	m_ScreenQuadVS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/PostProcess.hlsl", "VS_ScreenQuad", "vs_5_1");
-	m_ToneMapWithBloomPS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/PostProcess.hlsl", "PS_ToneMapAndBloom", "ps_5_1");
+	m_ScreenQuadVS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/PostProcess.hlsl"), "VS_ScreenQuad", "vs_5_1");
+	m_ToneMapWithBloomPS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/PostProcess.hlsl"), "PS_ToneMapAndBloom", "ps_5_1");
 
 	m_ToneMapWithBloomPSO.SetRootSignature(m_PostProcessSignature);
 	m_ToneMapWithBloomPSO.SetRasterizerState(FPipelineState::RasterizerTwoSided);
@@ -140,7 +140,7 @@ void PostProcessing::Initialize()
 	int Black = 0;
 	m_BlackTexture.Create(1, 1, DXGI_FORMAT_R8G8B8A8_UNORM, &Black);
 
-	m_SSRPS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/SSR.hlsl", "PS_SSR", "ps_5_1");
+	m_SSRPS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/SSR.hlsl"), "PS_SSR", "ps_5_1");
 
 	m_SSRPSO.SetRootSignature(m_PostProcessSignature);
 	m_SSRPSO.SetRasterizerState(FPipelineState::RasterizerTwoSided);

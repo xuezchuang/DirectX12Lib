@@ -61,8 +61,8 @@ void TemporalEffects::Initialize(void)
 	s_RootSignature.Finalize(L"Temporal RS");
 
 	// PSO
-	s_TemporalBlendShader = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/TemporalBlendCS.hlsl", "cs_main", "cs_5_1");
-	s_ResolveTAAShader = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/ResolveTAACS.hlsl", "cs_main", "cs_5_1");
+	s_TemporalBlendShader = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/TemporalBlendCS.hlsl"), "cs_main", "cs_5_1");
+	s_ResolveTAAShader = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/ResolveTAACS.hlsl"), "cs_main", "cs_5_1");
 
 	s_TemporalBlendPSO.SetRootSignature(s_RootSignature);
 	s_TemporalBlendPSO.SetComputeShader(CD3DX12_SHADER_BYTECODE(s_TemporalBlendShader.Get()));

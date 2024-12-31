@@ -233,7 +233,7 @@ void RandomSample(const DirectX::ScratchImage& InputImage, size_t Width, size_t 
 	dstSImg.Initialize2D(DXGI_FORMAT_R32G32B32A32_FLOAT, InputImage.GetMetadata().width, InputImage.GetMetadata().height, InputImage.GetMetadata().arraySize, InputImage.GetMetadata().mipLevels);
 	for (int i = 0; i < InputImage.GetImageCount(); i++)
 	{
-		DirectX::_ConvertFromR16G16B16A16(InputImage.GetImages()[i], dstSImg.GetImages()[i]);
+		DirectX::Internal::ConvertFromR16G16B16A16(InputImage.GetImages()[i], dstSImg.GetImages()[i]);
 		
 		//const Image img = dstSImg.GetImages()[i];
 		//{

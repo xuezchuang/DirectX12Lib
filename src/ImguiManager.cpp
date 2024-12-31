@@ -95,8 +95,8 @@ void ImguiManager::Initialize()
         { "COLOR", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, offsetof( ImDrawVert, col ), D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
     };
 
-	m_ImGUIVS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/ImGUI.hlsl", "VS_Main", "vs_5_1");
-	m_ImGUIPS = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/ImGUI.hlsl", "PS_Main", "ps_5_1");
+	m_ImGUIVS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/ImGUI.hlsl"), "VS_Main", "vs_5_1");
+	m_ImGUIPS = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/ImGUI.hlsl"), "PS_Main", "ps_5_1");
 
 	m_ImGUIPSO.SetRootSignature(m_RootSignature);
 	m_ImGUIPSO.SetRasterizerState(FPipelineState::RasterizerTwoSided);

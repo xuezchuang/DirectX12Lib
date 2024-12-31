@@ -23,22 +23,22 @@
 #include "pix.h"
 #include "CommandContext.h"
 
-AGSContext* UserMarker::m_agsContext = nullptr;
+//AGSContext* UserMarker::m_agsContext = nullptr;
 
 UserMarker::UserMarker(class FCommandContext& context, const char* name)
 {
 	ID3D12GraphicsCommandList* commandBuffer = context.GetCommandList();
 	m_commandBuffer = commandBuffer;
-	if (m_agsContext)
-		agsDriverExtensionsDX12_PushMarker(m_agsContext, m_commandBuffer, name);
+	//if (m_agsContext)
+	//	agsDriverExtensionsDX12_PushMarker(m_agsContext, m_commandBuffer, name);
 
 	PIXBeginEvent(m_commandBuffer, 0, name);
 }
 
 UserMarker::~UserMarker()
 {
-	if (m_agsContext)
-		agsDriverExtensionsDX12_PopMarker(m_agsContext, m_commandBuffer);
+	//if (m_agsContext)
+	//	agsDriverExtensionsDX12_PopMarker(m_agsContext, m_commandBuffer);
 
 	PIXEndEvent(m_commandBuffer);
 }

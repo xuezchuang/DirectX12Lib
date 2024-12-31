@@ -4,7 +4,6 @@
 #include "CommandContext.h"
 #include "CommandListManager.h"
 #include "CommandContext.h"
-
 using namespace DirectX;
 
 extern FCommandListManager g_CommandListManager;
@@ -80,7 +79,10 @@ void FTexture::LoadFromFile(const std::wstring& FileName, bool IsSRGB)
 
 	ThrowIfFailed(hr);
 	ID3D12Device* Device = D3D12RHI::Get().GetD3D12Device().Get();
-	ThrowIfFailed(DirectX::CreateTextureEx(Device, image.GetMetadata(), D3D12_RESOURCE_FLAG_NONE, IsSRGB, m_Resource.ReleaseAndGetAddressOf()));
+
+	CREATETEX_FLAGS flag = IsSRGB ? CREATETEX_FORCE_SRGB : CREATETEX_DEFAULT;
+
+	ThrowIfFailed(DirectX::CreateTextureEx(Device, image.GetMetadata(), D3D12_RESOURCE_FLAG_NONE, flag, m_Resource.ReleaseAndGetAddressOf()));
 	InitializeState(D3D12_RESOURCE_STATE_COPY_DEST);
 
 	m_Resource->SetName(FileName.c_str());
@@ -140,7 +142,8 @@ void FTextureArray::LoadFromFile(const std::wstring& FileName, bool IsSRGB /*= t
 
 	ThrowIfFailed(hr);
 	ID3D12Device* Device = D3D12RHI::Get().GetD3D12Device().Get();
-	ThrowIfFailed(DirectX::CreateTextureEx(Device, image.GetMetadata(), D3D12_RESOURCE_FLAG_NONE, IsSRGB, m_Resource.ReleaseAndGetAddressOf()));
+	CREATETEX_FLAGS flag = IsSRGB ? CREATETEX_FORCE_SRGB : CREATETEX_DEFAULT;
+	ThrowIfFailed(DirectX::CreateTextureEx(Device, image.GetMetadata(), D3D12_RESOURCE_FLAG_NONE, flag, m_Resource.ReleaseAndGetAddressOf()));
 	InitializeState(D3D12_RESOURCE_STATE_COPY_DEST);
 
 	m_Resource->SetName(FileName.c_str());

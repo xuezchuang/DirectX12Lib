@@ -105,31 +105,31 @@ void DepthOfField::Initialize(void)
 	s_RootSignature.Finalize(L"DOF");
 
 	// coc
-	s_FragCoCShader = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/DepthOfField_CoC.hlsl", "cs_FragCoC", "cs_5_1");
+	s_FragCoCShader = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/DepthOfField_CoC.hlsl"), "cs_FragCoC", "cs_5_1");
 	s_FragCoCPSO.SetRootSignature(s_RootSignature);
 	s_FragCoCPSO.SetComputeShader(CD3DX12_SHADER_BYTECODE(s_FragCoCShader.Get()));
 	s_FragCoCPSO.Finalize();
 
 	// Prefilter
-	s_FragPrefilterShader = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/DepthOfField_Prefilter.hlsl", "cs_FragPrefilter", "cs_5_1");
+	s_FragPrefilterShader = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/DepthOfField_Prefilter.hlsl"), "cs_FragPrefilter", "cs_5_1");
 	s_FragPrefilterPSO.SetRootSignature(s_RootSignature);
 	s_FragPrefilterPSO.SetComputeShader(CD3DX12_SHADER_BYTECODE(s_FragPrefilterShader.Get()));
 	s_FragPrefilterPSO.Finalize();
 
 	// BokenhFilter
-	s_FragBokenhFilterShader = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/DepthOfField_BokehFilter.hlsl", "cs_FragBokehFilter", "cs_5_1");
+	s_FragBokenhFilterShader = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/DepthOfField_BokehFilter.hlsl"), "cs_FragBokehFilter", "cs_5_1");
 	s_FragBokenhFilterPSO.SetRootSignature(s_RootSignature);
 	s_FragBokenhFilterPSO.SetComputeShader(CD3DX12_SHADER_BYTECODE(s_FragBokenhFilterShader.Get()));
 	s_FragBokenhFilterPSO.Finalize();
 
 	// PostFilter
-	s_FragPostfilterShader = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/DepthOfField_Postfilter.hlsl", "cs_FragPostfilter", "cs_5_1");
+	s_FragPostfilterShader = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/DepthOfField_Postfilter.hlsl"), "cs_FragPostfilter", "cs_5_1");
 	s_FragPostfilterPSO.SetRootSignature(s_RootSignature);
 	s_FragPostfilterPSO.SetComputeShader(CD3DX12_SHADER_BYTECODE(s_FragPostfilterShader.Get()));
 	s_FragPostfilterPSO.Finalize();
 
 	// Combine
-	s_FragCombineShader = D3D12RHI::Get().CreateShader(L"../Resources/Shaders/DepthOfField_Combine.hlsl", "cs_FragCombine", "cs_5_1");
+	s_FragCombineShader = D3D12RHI::Get().CreateShader(getpath(L"Resources/Shaders/DepthOfField_Combine.hlsl"), "cs_FragCombine", "cs_5_1");
 	s_FragCombinePSO.SetRootSignature(s_RootSignature);
 	s_FragCombinePSO.SetComputeShader(CD3DX12_SHADER_BYTECODE(s_FragCombineShader.Get()));
 	s_FragCombinePSO.Finalize();
