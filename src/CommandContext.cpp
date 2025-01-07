@@ -418,6 +418,11 @@ void FCommandContext::SetStencilRef(UINT RefValue)
 	m_CommandList->OMSetStencilRef(RefValue);
 }
 
+void FCommandContext::SetConstantBuffer(UINT RootIndex, D3D12_GPU_VIRTUAL_ADDRESS CBV)
+{
+	m_CommandList->SetGraphicsRootConstantBufferView(RootIndex,CBV);
+}
+
 void FCommandContext::SetConstantArray(UINT RootIndex, UINT NumConstants, const void* Contents)
 {
 	m_CommandList->SetGraphicsRoot32BitConstants(RootIndex, NumConstants, Contents, 0);

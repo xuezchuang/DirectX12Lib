@@ -35,6 +35,13 @@ void FRootSignature::InitStaticSampler(UINT Register, const D3D12_SAMPLER_DESC& 
 	m_StaticSamplerArray.emplace_back(StaticSamplerDesc);
 }
 
+void FRootSignature::InitStaticSampler(const std::vector<D3D12_STATIC_SAMPLER_DESC>& SamplerDesc)
+{
+	Assert(m_StaticSamplerArray.size() < m_NumStaticSamplers);
+	m_StaticSamplerArray.resize(SamplerDesc.size());
+	std::copy(SamplerDesc.begin(), SamplerDesc.end(), m_StaticSamplerArray.begin());
+}
+
 void FRootSignature::Finalize(const std::wstring& name, D3D12_ROOT_SIGNATURE_FLAGS Flags)
 {
 	if (m_Finalized)

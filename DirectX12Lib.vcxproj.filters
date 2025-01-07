@@ -147,6 +147,12 @@
     <ClCompile Include="src\imgui\imgui_tables.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
+    <ClCompile Include="src\Color.cpp">
+      <Filter>00</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pch.cpp">
+      <Filter>00</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -306,8 +312,11 @@
     <ClInclude Include="include\CommandListManager.h">
       <Filter>00</Filter>
     </ClInclude>
-    <ClInclude Include="framework.h">
-      <Filter>shader</Filter>
+    <ClInclude Include="include\Color.h">
+      <Filter>00</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch.h">
+      <Filter>00</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -440,6 +449,102 @@
       <Filter>shader</Filter>
     </None>
     <None Include="Shaders\VSMConvertCS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\FillLightGridCS.hlsli">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\LightGrid.hlsli">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\Lighting.hlsli">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\Common.hlsli">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\CutoutDepthPS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\CutoutDepthSkinVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\CutoutDepthVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultNoTangentNoUV1PS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultNoTangentNoUV1SkinVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultNoTangentNoUV1VS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultNoTangentPS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultNoTangentSkinVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultNoTangentVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultNoUV1PS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultNoUV1SkinVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultNoUV1VS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultPS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultSkinVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DefaultVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DepthOnlySkinVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DepthOnlyVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DepthViewerPS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\DepthViewerVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\FillLightGridCS_8.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\FillLightGridCS_16.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\FillLightGridCS_24.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\FillLightGridCS_32.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="framework.h">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\ModelViewerPS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\ModelViewerVS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\SkyboxPS.hlsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Shaders\SkyboxVS.hlsl">
       <Filter>shader</Filter>
     </None>
   </ItemGroup>

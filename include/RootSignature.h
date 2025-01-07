@@ -44,12 +44,12 @@ public:
 		m_RootParam.Descriptor.RegisterSpace = 0;
 	}
 
-	void InitAsBufferSRV(UINT Register, D3D12_SHADER_VISIBILITY Visibility = D3D12_SHADER_VISIBILITY_ALL)
+	void InitAsBufferSRV(UINT Register, UINT registerSpace = 0, D3D12_SHADER_VISIBILITY Visibility = D3D12_SHADER_VISIBILITY_ALL)
 	{
 		m_RootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_SRV;
 		m_RootParam.ShaderVisibility = Visibility;
 		m_RootParam.Descriptor.ShaderRegister = Register;
-		m_RootParam.Descriptor.RegisterSpace = 0;
+		m_RootParam.Descriptor.RegisterSpace = registerSpace;
 	}
 
 	void InitAsBufferUAV(UINT Register, D3D12_SHADER_VISIBILITY Visibility = D3D12_SHADER_VISIBILITY_ALL)
@@ -128,6 +128,7 @@ public:
 	}
 
 	void InitStaticSampler(UINT Register, const D3D12_SAMPLER_DESC& SamplerDesc, D3D12_SHADER_VISIBILITY Visibility = D3D12_SHADER_VISIBILITY_ALL);
+	void InitStaticSampler(const std::vector< D3D12_STATIC_SAMPLER_DESC>& SamplerDesc);
 
 	void Finalize(const std::wstring& name, D3D12_ROOT_SIGNATURE_FLAGS Flags = D3D12_ROOT_SIGNATURE_FLAG_NONE);
 

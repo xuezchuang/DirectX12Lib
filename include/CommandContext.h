@@ -103,6 +103,7 @@ public:
 
 	void SetStencilRef(UINT RefValue);
 
+	void SetConstantBuffer(UINT RootIndex, D3D12_GPU_VIRTUAL_ADDRESS CBV);
 	void SetConstantArray(UINT RootIndex, UINT NumConstants, const void* Contents);
 	void SetDynamicConstantBufferView(UINT RootIndex, size_t BufferSize, const void* BufferData);
 
